@@ -1,8 +1,8 @@
-package XY.Inc.POI.controllerDto;
+package XY.Inc.POI.model;
 
 import javax.validation.constraints.NotNull;
 
-public class PoiRefe {
+public class PoiRefeDto {
 	
 	@NotNull
 	private Integer coordX;

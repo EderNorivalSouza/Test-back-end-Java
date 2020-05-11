@@ -1,9 +1,7 @@
-package XY.Inc.POI.controllerDto;
+package XY.Inc.POI.model;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
-import XY.Inc.POI.model.Poi;
 
 public class PoiDto {
 	

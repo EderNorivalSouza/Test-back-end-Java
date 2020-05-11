@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import XY.Inc.POI.controllerDto.PoiDto;
-import XY.Inc.POI.controllerDto.PoiForm;
-import XY.Inc.POI.controllerDto.PoiRefe;
 import XY.Inc.POI.model.Poi;
+import XY.Inc.POI.model.PoiDto;
+import XY.Inc.POI.model.PoiFormDto;
+import XY.Inc.POI.model.PoiRefeDto;
 import XY.Inc.POI.repository.PoiRepository;
 
 @RestController
@@ -35,7 +35,7 @@ public class PoiController {
 	}
 	
 	@PostMapping 
-	public ResponseEntity<PoiDto> cadastrar(@RequestBody@Valid PoiForm form, UriComponentsBuilder uriBuilder){
+	public ResponseEntity<PoiDto> cadastrar(@RequestBody@Valid PoiFormDto form, UriComponentsBuilder uriBuilder){
 		Poi poi = form.converter();
 		poiRepository.save(poi);
 		URI uri = uriBuilder.path("/pois/{id}").buildAndExpand(poi.getId()).toUri();
@@ -45,7 +45,7 @@ public class PoiController {
 	
 	
 	@PostMapping("/filtro")
-	public List<PoiDto> buscapois(@RequestBody@Valid PoiRefe form){
+	public List<PoiDto> buscapois(@RequestBody@Valid PoiRefeDto form){
 		List<Poi> pois = poiRepository.findAll();
 		List<Poi> resultado = new ArrayList<Poi>();
 		for (Poi poi:pois) {

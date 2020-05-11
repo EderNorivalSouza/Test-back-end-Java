@@ -1,11 +1,9 @@
-package XY.Inc.POI.controllerDto;
+package XY.Inc.POI.model;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import XY.Inc.POI.model.Poi;
-
-public class PoiForm {
+public class PoiFormDto {
 	
 	@NotEmpty
 	private String name;

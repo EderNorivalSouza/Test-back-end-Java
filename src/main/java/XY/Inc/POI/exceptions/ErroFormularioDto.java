@@ -1,4 +1,4 @@
-package XY.Inc.POI.config;
+package XY.Inc.POI.exceptions;
 
 public class ErroFormularioDto {
 	

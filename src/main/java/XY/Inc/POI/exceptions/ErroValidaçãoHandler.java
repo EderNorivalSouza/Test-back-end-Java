@@ -1,4 +1,4 @@
-package XY.Inc.POI.config;
+package XY.Inc.POI.exceptions;
 
 import java.util.ArrayList;
 import java.util.List;
