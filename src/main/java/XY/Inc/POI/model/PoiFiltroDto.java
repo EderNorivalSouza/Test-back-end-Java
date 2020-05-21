@@ -1,22 +1,27 @@
 package XY.Inc.POI.model;
 
-import javax.validation.constraints.NotNull;
-
-public class PoiRefeDto {
+public class PoiFiltroDto {
 	
-	@NotNull
+
 	private Integer coordX;
-	@NotNull
 	private Integer coordY;
 	
+	
+	public PoiFiltroDto(Integer coordX, Integer coordY) {
+		this.coordX = coordX;
+		this.coordY = coordY;
+	}
+
+
 	public Integer getCoordX() {
 		return coordX;
 	}
-	
+
+
 	public Integer getCoordY() {
 		return coordY;
 	}
 	
 	
-
 }
+	
