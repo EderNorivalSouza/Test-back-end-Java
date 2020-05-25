@@ -1,18 +1,23 @@
 package XY.Inc.POI.controller;
 
-import XY.Inc.POI.model.Poi;
-import XY.Inc.POI.model.PoiDto;
-import XY.Inc.POI.model.PoiFiltroDto;
-import XY.Inc.POI.model.PoiFormDto;
-import XY.Inc.POI.service.Services;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
-
-import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import XY.Inc.POI.model.Poi;
+import XY.Inc.POI.model.PoiDto;
+import XY.Inc.POI.model.PoiFormDto;
+import XY.Inc.POI.service.Services;
 
 @RestController
 @RequestMapping("/pois")
@@ -22,17 +27,11 @@ public class PoiController {
 	public Services services;
 
 	@GetMapping
-  	public List<PoiDto> Pois(PoiFiltroDto form) {
-		List<Poi> pois = services.listarPois();
-		
-		if(services.validacao(form)==true) {
-			return PoiDto.converter(pois);
-		}
-		else {
-			List<Poi> resultado = services.AplicaFiltro(pois,form);
-			return PoiDto.converter(resultado);
-		}
-		
+  	public List<PoiDto> Pois(
+  			Integer coordX,
+  			Integer coordY,
+  			Integer dmax) {
+		return PoiDto.converter(services.listarPois(coordX, coordY, dmax));		
 	}
 		
 	@PostMapping 
