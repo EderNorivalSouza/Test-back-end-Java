@@ -1,4 +1,4 @@
-package XY.Inc.POI.model;
+package br.com.xy.inc.poi.model;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;

@@ -1,11 +1,11 @@
-package XY.Inc.POI.exceptions;
+package br.com.xy.inc.poi.exceptions;
 
-public class ErroFormularioDto {
+public class FormErrorDto {
 	
 	private String campo;
 	private String erro;
 	
-	public ErroFormularioDto(String campo, String erro) {
+	public FormErrorDto(String campo, String erro) {
 		this.campo = campo;
 		this.erro = erro;
 	}

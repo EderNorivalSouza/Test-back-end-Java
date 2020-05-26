@@ -1,4 +1,4 @@
-package XY.Inc.POI.exceptions;
+package br.com.xy.inc.poi.exceptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,20 +14,20 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
-public class ErroValidaçãoHandler {
+public class ValidationHandler {
 	
 	@Autowired
 	private MessageSource messageSource;
 	
 	@ResponseStatus(code=HttpStatus.BAD_REQUEST)
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public List<ErroFormularioDto> handle(MethodArgumentNotValidException exception) {
+	public List<FormErrorDto> handle(MethodArgumentNotValidException exception) {
 		
-		List <ErroFormularioDto> dto = new ArrayList<>();
+		List <FormErrorDto> dto = new ArrayList<>();
 		List <FieldError> fieldErros = exception.getBindingResult().getFieldErrors();
 		fieldErros.forEach(e ->{
 			String mensagem = messageSource.getMessage(e, LocaleContextHolder.getLocale());
-			ErroFormularioDto erro = new ErroFormularioDto(e.getField(), mensagem);
+			FormErrorDto erro = new FormErrorDto(e.getField(), mensagem);
 			dto.add(erro);
 		});		
 		return dto;

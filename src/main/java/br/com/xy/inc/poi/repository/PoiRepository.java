@@ -1,8 +1,8 @@
-package XY.Inc.POI.repository;
+package br.com.xy.inc.poi.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import XY.Inc.POI.model.Poi;
+import br.com.xy.inc.poi.model.Poi;
 
 public interface PoiRepository extends JpaRepository<Poi, Long> {
 

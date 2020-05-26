@@ -1,4 +1,4 @@
-package XY.Inc.POI.controller;
+package br.com.xy.inc.poi.controller;
 
 import java.net.URI;
 import java.util.List;
@@ -14,32 +14,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import XY.Inc.POI.model.Poi;
-import XY.Inc.POI.model.PoiDto;
-import XY.Inc.POI.model.PoiFormDto;
-import XY.Inc.POI.service.Services;
+import br.com.xy.inc.poi.model.Poi;
+import br.com.xy.inc.poi.model.PoiDto;
+import br.com.xy.inc.poi.model.PoiFilterDto;
+import br.com.xy.inc.poi.model.PoiFormDto;
+import br.com.xy.inc.poi.service.PoiServices;
 
 @RestController
 @RequestMapping("/pois")
 public class PoiController {
 
 	@Autowired
-	public Services services;
+	PoiServices services;
 
 	@GetMapping
-  	public List<PoiDto> Pois(
-  			Integer coordX,
-  			Integer coordY,
-  			Integer dmax) {
-		return PoiDto.converter(services.listarPois(coordX, coordY, dmax));		
+  	public List<PoiDto> Pois() {
+		return PoiDto.converter(services.listPois());		
+	}
+	
+	@PostMapping("/filter")
+	public List<PoiDto> filterPois(@RequestBody @Valid PoiFilterDto form){
+		return PoiDto.converter(services.filteredPois(form));
 	}
 		
 	@PostMapping 
-	public ResponseEntity<PoiDto> cadastrar(@RequestBody@Valid PoiFormDto form, UriComponentsBuilder uriBuilder){
+	public ResponseEntity<PoiDto> addPoi(@RequestBody@Valid PoiFormDto form, UriComponentsBuilder uriBuilder){
 		Poi poi = form.converter();
-		services.adicionaPoi(poi);
-		URI uri = uriBuilder.path("/pois/{id}").buildAndExpand(poi.getId()).toUri();
+		services.addPoi(poi);
+		URI uri= uriBuilder.path("/pois/{id}").buildAndExpand(poi.getId()).toUri();
 		return ResponseEntity.created(uri).body(new PoiDto(poi));
-	
+		
 	}
+	
+	
 }

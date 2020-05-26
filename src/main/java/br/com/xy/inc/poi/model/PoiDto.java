@@ -1,4 +1,4 @@
-package XY.Inc.POI.model;
+package br.com.xy.inc.poi.model;
 
 import java.util.List;
 import java.util.stream.Collectors;
