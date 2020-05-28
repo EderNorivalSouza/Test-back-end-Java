@@ -15,16 +15,18 @@ public class PoiServicesImpl implements PoiServices {
 
 	@Autowired
 	PoiRepository poiRepository;
+	
+	List<Poi> pois = poiRepository.findAll();
+	
 
 
 		public List<Poi> listPois(){
-			List<Poi> pois = poiRepository.findAll();
-			return pois;
+			List<Poi> list = pois;
+			return list;
 		}
 
 							
 		public List<Poi> filteredPois (PoiFilterDto form){
-			List <Poi> pois = poiRepository.findAll();
 			List <Poi> filteredPois = new ArrayList<Poi>();	
 				for (Poi poi:pois) {
 					int x = Math.abs(poi.getCoordX()-form.getCoordX());
@@ -39,4 +41,5 @@ public class PoiServicesImpl implements PoiServices {
 		public void addPoi(Poi poi){
 			poiRepository.save(poi);
 		}
+
 }
