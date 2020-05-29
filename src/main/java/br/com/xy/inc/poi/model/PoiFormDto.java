@@ -32,7 +32,6 @@ public class PoiFormDto {
 		this.coordY = coordY;
 	}
 	public Poi converter() {
-		
 		return new Poi(name, coordX, coordY);
 	}
 	

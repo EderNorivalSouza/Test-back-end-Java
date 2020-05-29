@@ -1,20 +1,18 @@
 package br.com.xy.inc.poi.service;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
 import br.com.xy.inc.poi.model.Poi;
 import br.com.xy.inc.poi.model.PoiFilterDto;
 
+import java.util.List;
 
-@Service
+
+
 public interface PoiServices {
 
-	List<Poi> listPois();
-	List<Poi> filteredPois(PoiFilterDto form);
+	List<Poi> listPois(List<Poi> list);
+	List<Poi> filteredPois(List<Poi> list,PoiFilterDto form);
 	void addPoi(Poi poi);
-			
+	List<Poi> repositoryaccess();
 }
 	
 

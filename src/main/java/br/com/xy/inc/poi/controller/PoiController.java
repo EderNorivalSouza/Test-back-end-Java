@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,17 +23,20 @@ import br.com.xy.inc.poi.service.PoiServices;
 @RequestMapping("/pois")
 public class PoiController {
 
-	@Autowired
-	PoiServices services;
+	private final PoiServices services;
+
+	public PoiController(PoiServices services) {
+		this.services = services;
+	}
 
 	@GetMapping
   	public List<PoiDto> Pois() {
-		return PoiDto.converter(services.listPois());		
+		return PoiDto.converter(services.listPois(services.repositoryaccess()));
 	}
 	
 	@PostMapping("/filter")
 	public List<PoiDto> filterPois(@RequestBody @Valid PoiFilterDto form){
-		return PoiDto.converter(services.filteredPois(form));
+		return PoiDto.converter(services.filteredPois(services.repositoryaccess(),form));
 	}
 		
 	@PostMapping 

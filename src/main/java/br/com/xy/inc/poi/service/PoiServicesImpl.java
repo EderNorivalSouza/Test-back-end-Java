@@ -1,34 +1,28 @@
 package br.com.xy.inc.poi.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import br.com.xy.inc.poi.model.Poi;
 import br.com.xy.inc.poi.model.PoiFilterDto;
 import br.com.xy.inc.poi.repository.PoiRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class PoiServicesImpl implements PoiServices {
-
 	@Autowired
 	PoiRepository poiRepository;
-	
-	List<Poi> pois = poiRepository.findAll();
-	
 
-
-		public List<Poi> listPois(){
-			List<Poi> list = pois;
+		public List<Poi> listPois(List<Poi> poiList){
+			List<Poi> list = poiList;
 			return list;
 		}
 
 							
-		public List<Poi> filteredPois (PoiFilterDto form){
-			List <Poi> filteredPois = new ArrayList<Poi>();	
-				for (Poi poi:pois) {
+		public List<Poi> filteredPois (List<Poi>list, PoiFilterDto form){
+			List <Poi> filteredPois = new ArrayList<Poi>();
+				for (Poi poi:list) {
 					int x = Math.abs(poi.getCoordX()-form.getCoordX());
 					int y = Math.abs(poi.getCoordY()-form.getCoordY());
 						if((x+y)<=form.getDmax()){
@@ -37,9 +31,12 @@ public class PoiServicesImpl implements PoiServices {
 				}
 				return filteredPois;
 		}
-		
+
 		public void addPoi(Poi poi){
 			poiRepository.save(poi);
 		}
 
+		public List<Poi> repositoryaccess() {
+			return poiRepository.findAll();
+		}
 }
