@@ -31,12 +31,12 @@ public class PoiController {
 
 	@GetMapping
   	public List<PoiDto> Pois() {
-		return PoiDto.converter(services.listPois(services.repositoryaccess()));
+		return PoiDto.converter(services.findAll());
 	}
 	
 	@PostMapping("/filter")
 	public List<PoiDto> filterPois(@RequestBody @Valid PoiFilterDto form){
-		return PoiDto.converter(services.filteredPois(services.repositoryaccess(),form));
+		return PoiDto.converter(services.filteredPois(services.findAll(),form));
 	}
 		
 	@PostMapping 

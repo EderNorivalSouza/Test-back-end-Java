@@ -9,10 +9,9 @@ import java.util.List;
 
 public interface PoiServices {
 
-	List<Poi> listPois(List<Poi> list);
 	List<Poi> filteredPois(List<Poi> list,PoiFilterDto form);
 	void addPoi(Poi poi);
-	List<Poi> repositoryaccess();
+	List<Poi> findAll();
 }
 	
 

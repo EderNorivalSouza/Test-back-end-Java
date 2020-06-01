@@ -14,29 +14,28 @@ public class PoiServicesImpl implements PoiServices {
 	@Autowired
 	PoiRepository poiRepository;
 
-		public List<Poi> listPois(List<Poi> poiList){
-			List<Poi> list = poiList;
-			return list;
-		}
-
-							
 		public List<Poi> filteredPois (List<Poi>list, PoiFilterDto form){
 			List <Poi> filteredPois = new ArrayList<Poi>();
 				for (Poi poi:list) {
-					int x = Math.abs(poi.getCoordX()-form.getCoordX());
-					int y = Math.abs(poi.getCoordY()-form.getCoordY());
-						if((x+y)<=form.getDmax()){
+						if((distanceCalc(poi,form))<=form.getDmax()){
 							filteredPois.add(poi);
 						}
 				}
-				return filteredPois;
+			return filteredPois;
 		}
 
 		public void addPoi(Poi poi){
 			poiRepository.save(poi);
 		}
 
-		public List<Poi> repositoryaccess() {
+		public List<Poi> findAll() {
 			return poiRepository.findAll();
+		}
+
+		private int distanceCalc(Poi poi,PoiFilterDto form){
+			int x = Math.abs(poi.getCoordX()-form.getCoordX());
+			int y = Math.abs(poi.getCoordY()-form.getCoordY());
+			int distanceCalc = (x+y);
+			return distanceCalc;
 		}
 }

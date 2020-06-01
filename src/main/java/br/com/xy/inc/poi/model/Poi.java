@@ -15,15 +15,14 @@ public class Poi {
 	private Integer coordY;
 	
 	public Poi() {
-	}	
-	
+	}
+
 	public Poi(String name, Integer coordX, Integer coordY) {
 		this.name = name;
 		this.coordX = coordX;
 		this.coordY = coordY;
 	}
 
-	
 	public String getName() {
 		return name;
 	}
@@ -94,5 +93,14 @@ public class Poi {
 			return false;
 		return true;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Poi{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", coordX=" + coordX +
+				", coordY=" + coordY +
+				'}';
+	}
 }

@@ -17,6 +17,12 @@ public class PoiDto {
 		this.coordY = poi.getCoordY();
 	}
 
+	public PoiDto(String name, Integer coordX, Integer coordY) {
+		this.name = name;
+		this.coordX = coordX;
+		this.coordY = coordY;
+	}
+
 	public Long getId() {
 		return id;
 	}
