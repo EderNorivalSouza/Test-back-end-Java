@@ -4,6 +4,8 @@ import br.com.xy.inc.poi.PoiApplication;
 import br.com.xy.inc.poi.model.PoiFilterDto;
 import br.com.xy.inc.poi.model.PoiFormDto;
 import br.com.xy.inc.poi.repository.PoiRepository;
+import org.assertj.core.error.AssertJMultipleFailuresError;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,15 +13,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.util.Assert;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
 
-//@ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @ContextConfiguration(classes = PoiApplication.class)
-public class PoiControllerTests {
+public class PoiExceptionsTests {
 
     @Autowired
     PoiRepository poiRepository;
@@ -35,32 +37,22 @@ public class PoiControllerTests {
         poiRepository.save(new br.com.xy.inc.poi.model.Poi("Local 5", 50, 50));
         poiRepository.save(new br.com.xy.inc.poi.model.Poi("Local 6", 60, 60));
     }
-
     @Test
-    public void requisitionGetTestStatus(){
-        restTemplate = new RestTemplate();
-        ResponseEntity response = restTemplate.getForEntity("http://localhost:8080/pois",String.class);
-		poiRepository.findAll().forEach(poi -> System.out.println(poi.toString()));
-        assertThat(response.getStatusCode(),equalTo(HttpStatus.OK));
+    public void exceptionFilterDtoWhenFilterApply(){
+        Assertions.assertThrows(HttpClientErrorException.class, () -> {
+            restTemplate = new RestTemplate();
+            PoiFilterDto form = new PoiFilterDto(0, 0, -20);
+            ResponseEntity response = restTemplate.postForEntity("http://localhost:8080/pois/filter", form, String.class);
+//        assertThat(response.getStatusCode(),equalTo(HttpStatus.OK));
+        });
     }
     @Test
-    public  void requisitionPostFilterStatus() {
-        restTemplate = new RestTemplate();
-        PoiFilterDto form = new PoiFilterDto(30,30,20);
-        ResponseEntity response = restTemplate.postForEntity("http://localhost:8080/pois/filter",form,String.class);
-        assertThat(response.getStatusCode(),equalTo(HttpStatus.OK));
+    public void exceptionFormDtoWhenAddPoi(){
+        Assertions.assertThrows(HttpClientErrorException.class, () -> {
+            restTemplate = new RestTemplate();
+            PoiFormDto form = new PoiFormDto("", 0, 0);
+            ResponseEntity response = restTemplate.postForEntity("http://localhost:8080/pois", form, String.class);
+//        assertThat(response.getStatusCode(),equalTo(HttpStatus.OK));
+        });
     }
-
-    @Test
-    public  void requisitionPostStatus() {
-        restTemplate = new RestTemplate();
-        PoiFormDto form = new PoiFormDto("teste",25,25);
-        ResponseEntity response = restTemplate.postForEntity("http://localhost:8080/pois",form,String.class);
-        //print response poi from POST requisiton
-        System.out.println(response.getBody().toString());
-        assertThat(response.getStatusCode(),equalTo(HttpStatus.CREATED));
-
-    }
-
-
 }
