@@ -1,3 +1,15 @@
+--liquibase formatted sql
+--changeset versao:001_structure
+
+CREATE TABLE poi
+(
+    id      bigserial    NOT NULL,
+    name    varchar(150) NOT NULL,
+    coordX   int NOT NULL,
+    coordY   int NOT NULL,
+    PRIMARY KEY (id)
+);
+
 INSERT INTO poi(name, coordX, coordY) VALUES('Lanchonete',27 ,12);
 INSERT INTO poi(name, coordX, coordY) VALUES('Posto',31 ,18);
 INSERT INTO poi(name, coordX, coordY) VALUES('Joalheria',15 ,12);
