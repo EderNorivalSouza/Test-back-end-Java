@@ -1,5 +1,4 @@
 package br.com.xy.inc.poi.service;
-
 import br.com.xy.inc.poi.model.Poi;
 import br.com.xy.inc.poi.model.PoiFilterDto;
 import br.com.xy.inc.poi.repository.PoiRepository;
@@ -24,15 +23,23 @@ public class PoiServicesImpl implements PoiServices {
 			return filteredPois;
 		}
 
-		public void addPoi(Poi poi){
-			poiRepository.save(poi);
+		public void addPoi(Poi poi){poiRepository.save(poi);}
+
+		public List<Poi> findAll() {return poiRepository.findAll();}
+
+
+		public Poi findById(Long id) {
+			Poi poi = new Poi();
+			for(Poi resultPoi:findAll()){
+				if(resultPoi.getId().equals(id)){
+						 poi = resultPoi;
+				}
+
+			}
+			return poi;
 		}
 
-		public List<Poi> findAll() {
-			return poiRepository.findAll();
-		}
-
-		private int distanceCalc(Poi poi,PoiFilterDto form){
+	private int distanceCalc(Poi poi,PoiFilterDto form){
 			int x = Math.abs(poi.getCoordX()-form.getCoordX());
 			int y = Math.abs(poi.getCoordY()-form.getCoordY());
 			int distanceCalc = (x+y);

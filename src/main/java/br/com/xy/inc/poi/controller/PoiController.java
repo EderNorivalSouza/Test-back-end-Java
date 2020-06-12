@@ -1,22 +1,15 @@
 package br.com.xy.inc.poi.controller;
 
-import java.net.URI;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
+import br.com.xy.inc.poi.model.*;
+import org.springframework.data.repository.query.Param;
+import org.springframework.web.bind.annotation.*;
 
-import br.com.xy.inc.poi.model.Poi;
-import br.com.xy.inc.poi.model.PoiDto;
-import br.com.xy.inc.poi.model.PoiFilterDto;
-import br.com.xy.inc.poi.model.PoiFormDto;
 import br.com.xy.inc.poi.service.PoiServices;
 
 @RestController
@@ -31,22 +24,25 @@ public class PoiController {
 
 	@GetMapping
   	public List<PoiDto> Pois() {
-		return PoiDto.converter(services.findAll());
+		return PoiDto.listConverter(services.findAll());
+	}
+
+	@GetMapping("/id")
+	public PoiDto poiById(@RequestParam @Valid @Min(1) Long id){
+		return PoiDto.poiConverter(services.findById(id));
 	}
 	
 	@PostMapping("/filter")
 	public List<PoiDto> filterPois(@RequestBody @Valid PoiFilterDto form){
-		return PoiDto.converter(services.filteredPois(services.findAll(),form));
+		return PoiDto.listConverter(services.filteredPois(services.findAll(),form));
 	}
 		
 	@PostMapping 
-	public ResponseEntity<PoiDto> addPoi(@RequestBody@Valid PoiFormDto form, UriComponentsBuilder uriBuilder){
+	public PoiDto addPoi(@RequestBody@Valid PoiFormDto form){
 		Poi poi = form.converter();
 		services.addPoi(poi);
-		URI uri= uriBuilder.path("/pois/{id}").buildAndExpand(poi.getId()).toUri();
-		return ResponseEntity.created(uri).body(new PoiDto(poi));
+//		URI uri= uriBuilder.path("/pois/{id}").buildAndExpand(poi.getId()).toUri();
+		return new PoiDto(poi);
 		
 	}
-	
-	
 }

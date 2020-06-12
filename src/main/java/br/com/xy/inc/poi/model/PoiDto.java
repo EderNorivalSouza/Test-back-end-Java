@@ -39,8 +39,11 @@ public class PoiDto {
 		return coordY;
 	}
 	
-	public static List<PoiDto> converter(List<Poi> pois){
+	public static List<PoiDto> listConverter(List<Poi> pois){
 		return pois.stream().map(PoiDto::new).collect(Collectors.toList());
 	}
-	
+
+	public static PoiDto poiConverter(Poi poi){
+		return new PoiDto(poi);
+	}
 }

@@ -12,6 +12,7 @@ public interface PoiServices {
 	List<Poi> filteredPois(List<Poi> list,PoiFilterDto form);
 	void addPoi(Poi poi);
 	List<Poi> findAll();
+    Poi findById(Long id);
 }
 	
 
