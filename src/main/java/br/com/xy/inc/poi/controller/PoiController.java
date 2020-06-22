@@ -1,16 +1,15 @@
 package br.com.xy.inc.poi.controller;
 
-import java.util.List;
+import br.com.xy.inc.poi.model.Poi;
+import br.com.xy.inc.poi.model.PoiDto;
+import br.com.xy.inc.poi.model.PoiFilterDto;
+import br.com.xy.inc.poi.model.PoiFormDto;
+import br.com.xy.inc.poi.service.PoiServices;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-
-import br.com.xy.inc.poi.model.*;
-import org.springframework.data.repository.query.Param;
-import org.springframework.web.bind.annotation.*;
-
-import br.com.xy.inc.poi.service.PoiServices;
+import java.util.List;
 
 @RestController
 @RequestMapping("/pois")

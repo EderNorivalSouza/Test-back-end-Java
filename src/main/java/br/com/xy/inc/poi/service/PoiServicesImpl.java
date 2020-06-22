@@ -42,7 +42,6 @@ public class PoiServicesImpl implements PoiServices {
 	private int distanceCalc(Poi poi,PoiFilterDto form){
 			int x = Math.abs(poi.getCoordX()-form.getCoordX());
 			int y = Math.abs(poi.getCoordY()-form.getCoordY());
-			int distanceCalc = (x+y);
-			return distanceCalc;
+		return (x+y);
 		}
 }

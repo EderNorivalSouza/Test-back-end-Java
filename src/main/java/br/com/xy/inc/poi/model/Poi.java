@@ -27,24 +27,12 @@ public class Poi {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public Integer getCoordX() {
 		return coordX;
 	}
 
-	public void setCoordX(Integer coordX) {
-		this.coordX = coordX;
-	}
-
 	public Integer getCoordY() {
 		return coordY;
-	}
-
-	public void setCoordY(Integer coordY) {
-		this.coordY = coordY;
 	}
 
 	public Long getId() {

@@ -9,9 +9,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hibernate.cache.spi.entry.StructuredCacheEntry;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
@@ -19,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
@@ -30,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @ContextConfiguration(classes = PoiApplication.class)
-@ActiveProfiles("test")
+@ActiveProfiles(value = "test")
 public class PoiControllerTests {
 
     @Autowired
@@ -41,7 +44,7 @@ public class PoiControllerTests {
     public void requisitionGetTestStatus() {
         restTemplate = new RestTemplate();
         ResponseEntity response = restTemplate.getForEntity("http://localhost:8080/pois", String.class);
-        poiRepository.findAll().forEach(poi -> System.out.println(poi.toString()));
+//        poiRepository.findAll().forEach(poi -> System.out.println(poi.toString()));
         assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
     }
     @Test
@@ -96,9 +99,9 @@ public class PoiControllerTests {
 
     @AfterEach
     public void cleanTrash(){
-        for(Poi deletepoi:poiRepository.findAll()){
-            if(deletepoi.getCoordX()==25&&deletepoi.getCoordY()==25){
-                poiRepository.delete(deletepoi);
+        for(Poi deletePoi:poiRepository.findAll()){
+            if(deletePoi.getCoordX()==25&&deletePoi.getCoordY()==25){
+                poiRepository.delete(deletePoi);
             }
         }
     }
